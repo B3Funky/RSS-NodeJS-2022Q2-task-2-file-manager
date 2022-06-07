@@ -1,0 +1,6 @@
+# WebStorm
+.idea
+
+# Prettier
+.prettierignore
+.prettierrc.json
