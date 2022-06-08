@@ -1,22 +1,27 @@
 import * as readline from 'node:readline';
+import * as os from 'node:os';
 import { stdin as input, stdout as output } from 'node:process';
 
-import { username } from './utils/username.js';
+import { consoleMessages as message } from './utils/consoleMessages.js';
 
 const app = () => {
-  const userName = username();
   const rl = readline.createInterface({ input, output });
 
-  output.write(`Welcome to the File Manager, ${userName}!\n\n`);
+  process.chdir(os.homedir());
+
+  output.write(message.welcome);
+  output.write(message.currentlyDir(process.cwd()));
 
   rl.on('line', (input) => {
+    output.write(message.currentlyDir(process.cwd()));
+
     if (input === '.exit') {
       rl.emit('SIGINT');
     }
   });
 
   rl.on('SIGINT', () => {
-    output.write(`\nThank you for using File Manager, ${userName}!\n`);
+    output.write(message.goodbye);
     rl.close();
   });
 };
