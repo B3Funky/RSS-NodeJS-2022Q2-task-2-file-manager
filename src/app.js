@@ -3,6 +3,7 @@ import * as os from 'node:os';
 import { stdin as input, stdout as output } from 'node:process';
 
 import { cd, up, ls } from './nwd/index.js';
+import { cat, add, rn, cp, mv, rm } from './files/index.js';
 import { consoleMessages as message } from './utils/consoleMessages.js';
 
 const app = () => {
@@ -33,12 +34,83 @@ const app = () => {
             output.write(message.ls(await ls(process.cwd())));
             break;
 
+          case 'cat':
+            if (!args.length) {
+              output.write(message.needMin1Args);
+            } else {
+              const path = args.join(' ');
+
+              output.write(await cat(path));
+            }
+            break;
+
+          case 'add':
+            const fileName = args.join(' ');
+
+            await add(fileName);
+            output.write(message.fileCreated(fileName));
+            break;
+
+          case 'rn':
+            if (args.length < 2) {
+              output.write(message.needMin2Args);
+              throw new Error();
+            } else {
+              const [path, ...newFileNameArr] = args;
+              const newFileName = newFileNameArr.join(' ');
+
+              await rn(path, newFileName);
+              output.write(message.fileRenamed(path, newFileName));
+            }
+            break;
+
+          case 'cp':
+            if (args.length < 2) {
+              output.write(message.needMin2Args);
+              throw new Error();
+            } else {
+              const [oldPath, ...newPathArr] = args;
+              const newPath = newPathArr.join(' ');
+
+              await cp(oldPath, newPath);
+              output.write(message.fileCopied(oldPath, newPath));
+            }
+            break;
+
+          case 'mv':
+            if (args.length < 2) {
+              output.write(message.needMin2Args);
+              throw new Error();
+            } else {
+              const [oldPath, ...newPathArr] = args;
+              const newPath = newPathArr.join(' ');
+
+              await mv(oldPath, newPath);
+              output.write(message.fileMoved(oldPath, newPath));
+            }
+            break;
+
+          case 'rm':
+            if (!args.length) {
+              output.write(message.needMin1Args);
+              throw new Error();
+            } else {
+              const fileName = args.join(' ');
+
+              await rm(fileName);
+              output.write(message.fileRemoved(fileName));
+            }
+            break;
+
           default:
             output.write(message.invalidInput);
         }
 
         output.write(message.currentlyDir(process.cwd()));
       } catch (e) {
+        if (e) {
+          console.log(e);
+        }
         output.write(message.operationFailed);
       }
     }
