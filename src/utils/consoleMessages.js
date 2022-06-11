@@ -37,4 +37,6 @@ export const consoleMessages = {
   fileMoved: (oldPath, newPath) => `\x1b[32mFile "${oldPath}" moved to "${newPath}"!\x1b[0m\n`,
 
   fileRemoved: (fileName) => `\x1b[32mFile "${fileName}" removed!\x1b[0m\n`,
+
+  osArgNotFound: '\x1b[31mArgument not supported!\x1b[0m\n',
 };
