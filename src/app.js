@@ -5,6 +5,7 @@ import { stdin as input, stdout as output } from 'node:process';
 import { cd, up, ls } from './nwd/index.js';
 import { cat, add, rn, cp, mv, rm } from './files/index.js';
 import osInfo from './osInfo/index.js';
+import hash from './hash/index.js';
 import { consoleMessages as message } from './utils/consoleMessages.js';
 
 const app = () => {
@@ -103,6 +104,16 @@ const app = () => {
 
                 await rm(fileName);
                 output.write(message.fileRemoved(fileName));
+              }
+              break;
+
+            case 'hash':
+              if (!args.length) {
+                output.write(message.needMin1Args);
+              } else {
+                const path = args.join(' ');
+
+                console.log(`Hash for file "${path}":\n${await hash(path)}`);
               }
               break;
 
