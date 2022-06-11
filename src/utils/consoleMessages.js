@@ -39,4 +39,10 @@ export const consoleMessages = {
   fileRemoved: (fileName) => `\x1b[32mFile "${fileName}" removed!\x1b[0m\n`,
 
   osArgNotFound: '\x1b[31mArgument not supported!\x1b[0m\n',
+
+  fileCompressed: (oldPath, newPath) =>
+    `\x1b[32mFile "${oldPath}" compressed to "${newPath}"!\x1b[0m\n`,
+
+  fileDecompressed: (archivePath, targetPath) =>
+    `\x1b[32mFile "${archivePath}" decompressed to "${targetPath}"!\x1b[0m\n`,
 };

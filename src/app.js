@@ -6,6 +6,7 @@ import { cd, up, ls } from './nwd/index.js';
 import { cat, add, rn, cp, mv, rm } from './files/index.js';
 import osInfo from './osInfo/index.js';
 import hash from './hash/index.js';
+import { compress, decompress } from './compress/index.js';
 import { consoleMessages as message } from './utils/consoleMessages.js';
 
 const app = () => {
@@ -114,6 +115,32 @@ const app = () => {
                 const path = args.join(' ');
 
                 console.log(`Hash for file "${path}":\n${await hash(path)}`);
+              }
+              break;
+
+            case 'compress':
+              if (args.length < 2) {
+                output.write(message.needMin2Args);
+                throw new Error();
+              } else {
+                const [sourceFilePath, ...archiveFolderPathArr] = args;
+                const archiveFolderPath = archiveFolderPathArr.join(' ');
+
+                await compress(sourceFilePath, archiveFolderPath);
+                output.write(message.fileCompressed(sourceFilePath, archiveFolderPath));
+              }
+              break;
+
+            case 'decompress':
+              if (args.length < 2) {
+                output.write(message.needMin2Args);
+                throw new Error();
+              } else {
+                const [archivePath, ...targetPathArr] = args;
+                const targetPath = targetPathArr.join(' ');
+
+                await decompress(archivePath, targetPath);
+                output.write(message.fileDecompressed(archivePath, targetPath));
               }
               break;
 
