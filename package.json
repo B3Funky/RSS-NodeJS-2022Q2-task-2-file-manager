@@ -1,0 +1,27 @@
+{
+  "name": "task-2-file-manager",
+  "version": "0.1.0",
+  "description": "Node.js CLI File Manager",
+  "type": "module",
+  "main": "src/app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node src/app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/B3Funky/RSS-NodeJS-2022Q2-task-2-file-manager.git"
+  },
+  "keywords": [
+    "nodejs",
+    "cli",
+    "file manager",
+    "b3funky"
+  ],
+  "author": "B3Funky",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/B3Funky/RSS-NodeJS-2022Q2-task-2-file-manager/issues"
+  },
+  "homepage": "https://github.com/B3Funky/RSS-NodeJS-2022Q2-task-2-file-manager#readme"
+}
